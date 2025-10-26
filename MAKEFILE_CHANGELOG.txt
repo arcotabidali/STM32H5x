@@ -1,0 +1,26 @@
+STM32H5x Makefile Standalone Refactor Log
+========================================
+Date: 2025-10-25
+
+Summary:
+--------
+The makefile was refactored to remove all STM32CubeIDE dependencies and use standard GNU Make logic. This enables building the project from the command line without any IDE-generated files.
+
+Key Changes:
+------------
+1. Removed all `-include` statements for auto-generated files (sources.mk, subdir.mk, objects.mk, etc.).
+2. Automatically detect all C sources in `Src/` and assembly sources in `Startup/` using `wildcard`.
+3. All object files are now built into the `build/` directory.
+4. Added pattern rules for compiling C and assembly files to objects in `build/`.
+5. Linking, listing, and size calculation are handled with explicit rules using `arm-none-eabi-gcc` and `arm-none-eabi-objdump`.
+6. The linker script is referenced from the `linker/` directory.
+7. Added a `clean` rule to remove all build artifacts.
+8. The makefile is now portable and does not require STM32CubeIDE or its auto-generated files.
+
+Usage:
+------
+- `make all`   : Build the project
+- `make clean` : Remove all build artifacts
+- `make size`  : Show the size of the ELF output
+
+This log documents the transition to a fully standalone, portable makefile for STM32H5x projects.
