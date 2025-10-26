@@ -1,0 +1,19 @@
+# Build artifacts
+build/
+*.o
+*.elf
+*.map
+*.bin
+*.hex
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Backup / logs
+*.log
+*.bak
+
+# Optional: Ignore local OpenOCD binary history (use LFS instead)
