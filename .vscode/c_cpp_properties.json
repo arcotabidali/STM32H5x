@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "STM32H5x GCC",
+            "includePath": [
+                "${workspaceFolder}/Inc",
+                "${workspaceFolder}/Drivers/STM32H5xx_HAL_Driver/Inc",
+                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32H5xx/Include",
+                "${workspaceFolder}/Drivers/CMSIS/Include"
+            ],
+            "defines": [
+                "STM32H563xx",
+                "STM32",
+                "STM32H5",
+                "NUCLEO_H563ZI"
+            ],
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/Inc",
+                    "${workspaceFolder}/Drivers/STM32H5xx_HAL_Driver/Inc",
+                    "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32H5xx/Include",
+                    "${workspaceFolder}/Drivers/CMSIS/Include"
+                ],
+                "limitSymbolsToIncludedHeaders": false
+            }
+        }
+    ],
+    "version": 4
+}

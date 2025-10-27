@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Cortex Debug (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/STM32H5x.elf",
+      "configFiles": [
+        "${workspaceFolder}/tools/openocd/openocd.cfg"
+      ],
+      "runToEntryPoint": "main",
+      "svdFile": "",
+      "preLaunchTask": "build",
+      "gdbPath": "/usr/bin/gdb-multiarch",
+      "armToolchainPath": "/usr/bin/"
+    },
+    {
+      "name": "GDB (OpenOCD) using gdb-multiarch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/STM32H5x.elf",
+      "miDebuggerServerAddress": "localhost:3333",
+      "miDebuggerPath": "/usr/bin/gdb-multiarch",
+      "miDebuggerArgs": "-x ${workspaceFolder}/tools/gdb/gdbinit_stm32h5",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "start-openocd",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

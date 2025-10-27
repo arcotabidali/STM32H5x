@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "make all",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "start-openocd",
+      "type": "shell",
+      "command": "tools/openocd/bin/openocd -f tools/openocd/openocd.cfg",
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
