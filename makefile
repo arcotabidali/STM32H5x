@@ -2,22 +2,40 @@
 # STM32H5x Standalone Makefile (no STM32CubeIDE dependencies)
 
 SRC_DIR := Src
+HAL_DRIVER_SRC_DIR := Drivers/STM32H5xx_HAL_Driver/Src
+HAL_DRIVER_INC_DIR := Drivers/STM32H5xx_HAL_Driver/Inc
 STARTUP_DIR := Startup
 BUILD_DIR := build
 INCLUDE_DIR := Inc
+CMSIS_DEVICE_INC_DIR := Drivers/CMSIS/Device/ST/STM32H5xx/Include
 LINKER_SCRIPT := linker/STM32H563ZITX_FLASH.ld
 
-SRCS := $(wildcard $(SRC_DIR)/*.c)
+# Source and include directories
+CMSIS_CORE_INC_DIR := Drivers/CMSIS/Include
+SRC_DIRS := $(SRC_DIR) $(HAL_DRIVER_SRC_DIR)
+INCLUDE_DIRS := $(INCLUDE_DIR) $(HAL_DRIVER_INC_DIR) $(CMSIS_DEVICE_INC_DIR) $(CMSIS_CORE_INC_DIR)
+
+# Source and object files
+SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 STARTUP_SRCS := $(wildcard $(STARTUP_DIR)/*.s)
-OBJS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS)) \
-		$(patsubst $(STARTUP_DIR)/%.s,$(BUILD_DIR)/%.o,$(STARTUP_SRCS))
+OBJS := $(foreach dir,$(SRC_DIRS),$(patsubst $(dir)/%.c,$(BUILD_DIR)/%.o,$(wildcard $(dir)/*.c))) \
+	$(patsubst $(STARTUP_DIR)/%.s,$(BUILD_DIR)/%.o,$(STARTUP_SRCS))
 
 TARGET := STM32H5x
 ELF := $(BUILD_DIR)/$(TARGET).elf
 MAP := $(BUILD_DIR)/$(TARGET).map
 LIST := $(BUILD_DIR)/$(TARGET).list
 
-CFLAGS := -mcpu=cortex-m33 -std=gnu11 -DSTM32H563ZITx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -I$(INCLUDE_DIR) -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard
+# Debug toggle: set DEBUG=1 when running make to build a debug-friendly binary
+ifeq ($(DEBUG),1)
+CFLAGS := -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI $(addprefix -I,$(INCLUDE_DIRS)) -g3 -Og -fno-omit-frame-pointer -fno-inline -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -DDEBUG
+else
+CFLAGS := -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI $(addprefix -I,$(INCLUDE_DIRS)) -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard
+endif
+# For semi-hosting
+# LDFLAGS := -T$(LINKER_SCRIPT) -Wl,-Map=$(MAP) -Wl,--gc-sections -static --specs=rdimon.specs -lc -lrdimon -Wl,--start-group -lc -lm -Wl,--end-group
+# Comment above and uncomment below for no semi-hosting and move syscall.c from no-build to Src
+# then remove initialise_monitor_handles() from main.c
 LDFLAGS := -T$(LINKER_SCRIPT) --specs=nosys.specs -Wl,-Map=$(MAP) -Wl,--gc-sections -static --specs=nano.specs -Wl,--start-group -lc -lm -Wl,--end-group
 ASFLAGS := -mcpu=cortex-m33 -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -x assembler-with-cpp
 
@@ -28,7 +46,13 @@ $(ELF): $(OBJS) $(LINKER_SCRIPT)
 	arm-none-eabi-gcc -o $@ $(OBJS) $(CFLAGS) $(LDFLAGS)
 	@echo 'Finished building target: $@'
 
+
+# Pattern rule for Src
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
+
+# Pattern rule for HAL driver sources
+$(BUILD_DIR)/%.o: $(HAL_DRIVER_SRC_DIR)/%.c | $(BUILD_DIR)
 	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(STARTUP_DIR)/%.s | $(BUILD_DIR)

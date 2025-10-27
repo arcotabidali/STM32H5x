@@ -1,0 +1,45 @@
+[{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Src/main.c -o build/main.o",
+	"file": "Src/main.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Src/stm32h5xx_hal_msp.c -o build/stm32h5xx_hal_msp.o",
+	"file": "Src/stm32h5xx_hal_msp.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Src/stm32h5xx_it.c -o build/stm32h5xx_it.o",
+	"file": "Src/stm32h5xx_it.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Src/system_stm32h5xx.c -o build/system_stm32h5xx.o",
+	"file": "Src/system_stm32h5xx.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Src/syscalls.c -o build/syscalls.o",
+	"file": "Src/syscalls.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Src/sysmem.c -o build/sysmem.o",
+	"file": "Src/sysmem.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_hal.c -o build/stm32h5xx_hal.o",
+	"file": "Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_hal.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_hal_cortex.c -o build/stm32h5xx_hal_cortex.o",
+	"file": "Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_hal_cortex.c"
+},
+{
+	"directory": "/home/abid/Documents/Embedded/STM32H5x",
+	"command": "arm-none-eabi-gcc -mcpu=cortex-m33 -std=gnu11 -DSTM32H563xx -DSTM32 -DSTM32H5 -DNUCLEO_H563ZI -IInc -IDrivers/STM32H5xx_HAL_Driver/Inc -IDrivers/CMSIS/Device/ST/STM32H5xx/Include -IDrivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -mthumb -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_hal_dma.c -o build/stm32h5xx_hal_dma.o",
+	"file": "Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_hal_dma.c"
+}]
