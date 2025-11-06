@@ -9,6 +9,36 @@
       "problemMatcher": []
     },
     {
+      "label": "flash",
+      "type": "shell",
+      "command": "make flash",
+      "problemMatcher": []
+    },
+    {
+      "label": "open-serial",
+      "type": "shell",
+      "command": "bash -lc 'exec picocom /dev/ttyACM0 -b 115200'",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build & Flash",
+      "type": "shell",
+      "command": "bash -lc 'set -e; make all; make flash'",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "start-openocd",
       "type": "shell",
       "command": "tools/openocd/bin/openocd -f tools/openocd/openocd.cfg",

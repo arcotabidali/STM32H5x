@@ -12,8 +12,13 @@
                 "STM32H563xx",
                 "STM32",
                 "STM32H5",
-                "NUCLEO_H563ZI"
+                "NUCLEO_H563ZI",
+                "USE_HAL_DRIVER"
             ],
+            "forcedInclude": [
+                "${workspaceFolder}/Inc/stm32h5xx_hal_conf.h"
+            ],
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
             "compilerPath": "/usr/bin/arm-none-eabi-gcc",
             "cStandard": "gnu11",
             "cppStandard": "c++17",

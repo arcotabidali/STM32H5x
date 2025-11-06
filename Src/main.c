@@ -43,10 +43,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int counter = 0;
   while (1)
   {
     /* USER CODE END WHILE */
-	  printf("Tick...\r\n");
+
+	  printf("Tick... %d\r\n", counter++);
 	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
