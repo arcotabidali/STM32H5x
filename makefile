@@ -81,3 +81,37 @@ debug:
 
 gdb:
 	gdb-multiarch -x tools/gdb/gdbinit_stm32h5 build/STM32H5x.elf
+
+# Build a debug-friendly binary (uses DEBUG=1)
+.PHONY: build-debug
+build-debug:
+	@echo "Building debug binary..."
+	$(MAKE) all DEBUG=1
+
+# Start OpenOCD in background and record PID to .openocd.pid
+.PHONY: debug-start
+debug-start:
+	@echo "Starting OpenOCD (background)..."
+	tools/openocd/bin/openocd -f tools/openocd/openocd.cfg & echo $$! > .openocd.pid
+	@sleep 0.2
+	@echo "OpenOCD started (pid `cat .openocd.pid` )"
+
+# Stop OpenOCD started by debug-start
+.PHONY: debug-stop
+debug-stop:
+	@if [ -f .openocd.pid ]; then \
+		kill `cat .openocd.pid` || true; \
+		rm -f .openocd.pid; \
+		echo "Stopped OpenOCD"; \
+	else \
+		echo "No OpenOCD pid file (.openocd.pid) found"; \
+	fi
+
+# Build debug binary, start OpenOCD, then run gdb; when gdb exits, stop OpenOCD
+.PHONY: debug-gdb
+debug-gdb: build-debug debug-start
+	gdb-multiarch -x tools/gdb/gdbinit_stm32 build/STM32H5x.elf ; $(MAKE) debug-stop
+
+# Convenience alias: build debug, flash it and start gdb session
+.PHONY: debug-all
+debug-all: build-debug flash debug-gdb
