@@ -2,5 +2,11 @@
 	"files.associations": {
 		"*.conf": "bitbake",
 		"*.inc": "bitbake"
-	}
+	},
+	// Ensure C/C++ extension uses compile_commands and proper engine
+	"C_Cpp.default.compileCommands": "${workspaceFolder}/compile_commands.json",
+	"C_Cpp.intelliSenseEngine": "default",
+	"C_Cpp.autocomplete": "default",
+	"C_Cpp.formatting": "clangFormat",
+	"C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
 }
