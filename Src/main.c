@@ -8,11 +8,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART3_UART_Init(void);
 
-int _write(int file, char *ptr, int len)
-{
-    HAL_UART_Transmit(&huart3, (uint8_t *)ptr, len, HAL_MAX_DELAY);
-    return len;
-}
 
 int main(void)
 {
@@ -43,13 +38,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int counter = 0;
   while (1)
   {
     /* USER CODE END WHILE */
-
-	  printf("Tick... %d\r\n", counter++);
-	  HAL_Delay(1000);
+    void app_main(void);
+    app_main();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
