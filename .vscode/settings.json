@@ -8,5 +8,13 @@
 	"C_Cpp.intelliSenseEngine": "default",
 	"C_Cpp.autocomplete": "default",
 	"C_Cpp.formatting": "clangFormat",
-	"C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
+	"C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
+	"python.autoComplete.extraPaths": [
+		"${workspaceFolder}/sources/poky/bitbake/lib",
+		"${workspaceFolder}/sources/poky/meta/lib"
+	],
+	"python.analysis.extraPaths": [
+		"${workspaceFolder}/sources/poky/bitbake/lib",
+		"${workspaceFolder}/sources/poky/meta/lib"
+	]
 }
