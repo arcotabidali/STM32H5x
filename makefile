@@ -70,7 +70,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 # Pattern rule for App sources (supports nested subdirectories under App/)
 $(BUILD_DIR)/%.o: $(APP_DIR)/%.c | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
-	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Pattern rule for HAL driver sources
 $(BUILD_DIR)/%.o: $(HAL_DRIVER_SRC_DIR)/%.c | $(BUILD_DIR)
