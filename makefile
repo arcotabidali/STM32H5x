@@ -10,6 +10,17 @@ INCLUDE_DIR := Inc
 CMSIS_DEVICE_INC_DIR := Drivers/CMSIS/Device/ST/STM32H5xx/Include
 LINKER_SCRIPT := linker/STM32H563ZITX_FLASH.ld
 
+# Toolchain location (repo-local first; otherwise use PATH)
+ifneq ($(wildcard tools/arm-gnu-toolchain/bin/arm-none-eabi-gcc),)
+TOOLCHAIN_BIN := tools/arm-gnu-toolchain/bin
+else
+TOOLCHAIN_BIN :=
+endif
+
+CC := $(if $(TOOLCHAIN_BIN),$(TOOLCHAIN_BIN)/arm-none-eabi-gcc,arm-none-eabi-gcc)
+OBJDUMP := $(if $(TOOLCHAIN_BIN),$(TOOLCHAIN_BIN)/arm-none-eabi-objdump,arm-none-eabi-objdump)
+SIZE := $(if $(TOOLCHAIN_BIN),$(TOOLCHAIN_BIN)/arm-none-eabi-size,arm-none-eabi-size)
+
 # Source and include directories
 CMSIS_CORE_INC_DIR := Drivers/CMSIS/Include
 SRC_DIRS := $(SRC_DIR) $(HAL_DRIVER_SRC_DIR)
@@ -43,27 +54,27 @@ all: $(ELF) $(LIST)
 
 $(ELF): $(OBJS) $(LINKER_SCRIPT)
 	@mkdir -p $(BUILD_DIR)
-	arm-none-eabi-gcc -o $@ $(OBJS) $(CFLAGS) $(LDFLAGS)
+	$(CC) -o $@ $(OBJS) $(CFLAGS) $(LDFLAGS)
 	@echo 'Finished building target: $@'
 
 
 # Pattern rule for Src
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Pattern rule for HAL driver sources
 $(BUILD_DIR)/%.o: $(HAL_DRIVER_SRC_DIR)/%.c | $(BUILD_DIR)
-	arm-none-eabi-gcc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(STARTUP_DIR)/%.s | $(BUILD_DIR)
-	arm-none-eabi-gcc $(ASFLAGS) -c $< -o $@
+	$(CC) $(ASFLAGS) -c $< -o $@
 
 $(LIST): $(ELF)
-	arm-none-eabi-objdump -h -S $< > $@
+	$(OBJDUMP) -h -S $< > $@
 	@echo 'Finished building: $@'
 
 size: $(ELF)
-	arm-none-eabi-size $<
+	$(SIZE) $<
 
 $(BUILD_DIR):
 	mkdir -p $@
@@ -86,6 +97,7 @@ gdb:
 .PHONY: build-debug
 build-debug:
 	@echo "Building debug binary..."
+	$(MAKE) clean
 	$(MAKE) all DEBUG=1
 
 # Start OpenOCD in background and record PID to .openocd.pid
@@ -110,7 +122,7 @@ debug-stop:
 # Build debug binary, start OpenOCD, then run gdb; when gdb exits, stop OpenOCD
 .PHONY: debug-gdb
 debug-gdb: build-debug debug-start
-	gdb-multiarch -x tools/gdb/gdbinit_stm32 build/STM32H5x.elf ; $(MAKE) debug-stop
+	gdb-multiarch -x tools/gdb/gdbinit_stm32h5 build/STM32H5x.elf ; $(MAKE) debug-stop
 
 # Convenience alias: build debug, flash it and start gdb session
 .PHONY: debug-all
