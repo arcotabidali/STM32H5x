@@ -6,6 +6,9 @@ build/
 *.bin
 *.hex
 
+# Toolchain includes required runtime objects (do not ignore)
+!tools/arm-gnu-toolchain/**
+
 # IDE / Editor
 .idea/
 *.swp
