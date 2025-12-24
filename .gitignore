@@ -9,6 +9,9 @@ build/
 # Toolchain includes required runtime objects (do not ignore)
 !tools/arm-gnu-toolchain/**
 
+# OpenOCD bundle should be fully tracked (some files match patterns above, e.g. *.hex)
+!tools/openocd/**
+
 # IDE / Editor
 .idea/
 *.swp

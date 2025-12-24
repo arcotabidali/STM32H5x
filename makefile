@@ -85,10 +85,10 @@ clean:
 
 .PHONY: all clean size
 flash:
-	tools/openocd/bin/openocd -f tools/openocd/openocd.cfg -c "program build/STM32H5x.elf verify reset exit"
+	LD_LIBRARY_PATH=tools/openocd/lib:$$LD_LIBRARY_PATH tools/openocd/bin/openocd -f tools/openocd/openocd.cfg -c "program build/STM32H5x.elf verify reset exit"
 
 debug:
-	tools/openocd/bin/openocd -f tools/openocd/openocd.cfg
+	LD_LIBRARY_PATH=tools/openocd/lib:$$LD_LIBRARY_PATH tools/openocd/bin/openocd -f tools/openocd/openocd.cfg
 
 gdb:
 	gdb-multiarch -x tools/gdb/gdbinit_stm32h5 build/STM32H5x.elf
@@ -104,7 +104,7 @@ build-debug:
 .PHONY: debug-start
 debug-start:
 	@echo "Starting OpenOCD (background)..."
-	tools/openocd/bin/openocd -f tools/openocd/openocd.cfg & echo $$! > .openocd.pid
+	LD_LIBRARY_PATH=tools/openocd/lib:$$LD_LIBRARY_PATH tools/openocd/bin/openocd -f tools/openocd/openocd.cfg & echo $$! > .openocd.pid
 	@sleep 0.2
 	@echo "OpenOCD started (pid `cat .openocd.pid` )"
 
