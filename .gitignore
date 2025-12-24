@@ -23,6 +23,9 @@ tools/_downloads/
 *.swp
 .DS_Store
 
+# Python
+.venv/
+
 # Backup / logs
 *.log
 *.bak
