@@ -12,6 +12,12 @@ build/
 # OpenOCD bundle should be fully tracked (some files match patterns above, e.g. *.hex)
 !tools/openocd/**
 
+# Local downloads/cache (do not commit)
+tools/_downloads/
+
+# Runtime history
+.picocom_history
+
 # IDE / Editor
 .idea/
 *.swp
