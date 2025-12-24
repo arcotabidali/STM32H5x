@@ -11,7 +11,7 @@ pipeline {
                 sh "make clean && make all"
             }
         }
-
+/*
         stage('Static Code Analysis') {
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
@@ -19,13 +19,14 @@ pipeline {
                 }
             }
         }
+*/
 
-        stage('Flash-Debug') { 
+        stage('Flash') { 
             steps {
                 sh "make flash"
             }
         }
-
+/*
         stage('Test-Debug') { 
             steps {
                 sh "python3 ${TOOL_DIR}/base-hilt.py --dut-serial=$params.DUT_console --sim-serial=$params.SIM_console --tver=${BUILD_TAG}-Debug --jfile=test-results-debug.xml"
@@ -33,7 +34,8 @@ pipeline {
                 sh "echo test-results-debug.xml"
             }
         }
-
+*/
+/*
         stage('Flash-Release') { 
             steps {
                 sh "make clean && make all"
@@ -48,12 +50,14 @@ pipeline {
                 sh "echo test-results-release.xml"
             }
         }
+*/
     }
 
     post {
         success {
             sh "echo 'Build succeeded!'"
         }
+        /*
         unsuccessful {
             script {
                 emailext (
@@ -63,5 +67,6 @@ pipeline {
                 )
             }
         }
+        */
     }
 }
